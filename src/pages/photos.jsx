@@ -16,18 +16,21 @@ const Photos = () => {
     color: theme.palette.text.secondary,
   }));
 
-  useEffect(() => {
-    async function getPhotos() {
+  async function getPhotos() {
+    try {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/photos"
       );
       const result = await response.json();
       setPhotos(result);
       console.log(result);
+    } catch (error) {
+      console.log(error);
     }
-    return () => {
-      getPhotos();
-    };
+  }
+
+  useEffect(() => {
+    getPhotos();
   }, []);
 
   return (

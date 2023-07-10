@@ -16,18 +16,21 @@ const Comments = () => {
     color: theme.palette.text.secondary,
   }));
 
-  useEffect(() => {
-    async function getComments() {
+  async function getComments() {
+    try {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/comments"
       );
       const result = await response.json();
       setComments(result);
       console.log(result);
+    } catch (error) {
+      console.log(error);
     }
-    return () => {
-      getComments();
-    };
+  }
+
+  useEffect(() => {
+    getComments();
   }, []);
 
   return (
